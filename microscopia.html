@@ -67,20 +67,29 @@
         const controls = new OrbitControls(camera, renderer.domElement);
         const loader = new GLTFLoader();
         
-      // Ajuste aqui para o microscópio ficar maior
-        loader.load('microscope.glb', (gltf) => {
+     loader.load('microscope.glb', (gltf) => {
             const model = gltf.scene;
             
-            // Aumenta o tamanho do modelo (tente 20, 50 ou 100 conforme necessário)
-            model.scale.set(40, 40, 40); 
-            
-            // Centraliza o modelo
+            // --- Lógica de Enquadramento Automático ---
             const box = new THREE.Box3().setFromObject(model);
+            const size = box.getSize(new THREE.Vector3());
             const center = box.getCenter(new THREE.Vector3());
-            model.position.sub(center);
             
+            // Calcula a escala para que o modelo tenha um tamanho padrão
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 3 / maxDim; // O número 3 define o "tamanho visual"
+            model.scale.set(scale, scale, scale);
+            
+            // Centraliza o modelo na cena
+            model.position.x += (model.position.x - center.x) * scale;
+            model.position.y += (model.position.y - center.y) * scale;
+            model.position.z += (model.position.z - center.z) * scale;
+            // ------------------------------------------
+
             scene.add(model);
             document.getElementById('loader').style.display = 'none';
+        }, undefined, (error) => {
+            console.error(error);
         });
 
         const macro = document.getElementById('macro-focus');
