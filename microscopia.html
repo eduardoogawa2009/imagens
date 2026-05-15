@@ -67,9 +67,19 @@
         const controls = new OrbitControls(camera, renderer.domElement);
         const loader = new GLTFLoader();
         
-        // Caminho relativo para o seu arquivo que já está na mesma pasta
+      // Ajuste aqui para o microscópio ficar maior
         loader.load('microscope.glb', (gltf) => {
-            scene.add(gltf.scene);
+            const model = gltf.scene;
+            
+            // Aumenta o tamanho do modelo (tente 20, 50 ou 100 conforme necessário)
+            model.scale.set(40, 40, 40); 
+            
+            // Centraliza o modelo
+            const box = new THREE.Box3().setFromObject(model);
+            const center = box.getCenter(new THREE.Vector3());
+            model.position.sub(center);
+            
+            scene.add(model);
             document.getElementById('loader').style.display = 'none';
         });
 
