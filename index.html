@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Animações - Paciente 3D</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+        #instrucoes {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        h1 { margin: 0 0 5px 0; font-size: 16px; }
+        p { margin: 0; font-size: 12px; opacity: 0.8; }
+        
+        /* Customização para o menu lil-gui ficar bem visível no canto */
+        .lil-gui {
+            --background-color: rgba(20, 20, 20, 0.9) !important;
+            --text-color: #eee !important;
+            font-family: sans-serif !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="instrucoes">
+        <h1>Controlador de Animações</h1>
+        <p>Use o menu no canto superior direito para testar os movimentos.</p>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
