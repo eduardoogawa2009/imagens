@@ -115,16 +115,16 @@ loader.load('paciente_1.glb', (gltf) => {
 // 5. FUNÇÃO PARA TRANSIÇÃO SUAVE ENTRE MOVIMENTOS
 // ==========================================
 function mudarParaAnimacao(nomeAnimacao) {
+    // Para qualquer animação que esteja rodando
+    if (activeAction) activeAction.stop();
+
     const novaAcao = actions[nomeAnimacao];
     if (!novaAcao) return;
 
-    if (activeAction) {
-        // Faz uma transição suave (crossfade) de 0.5 segundos entre a animação antiga e a nova
-        activeAction.fadeOut(0.5);
-    }
-
+    // Configurações cruciais para animações esqueléticas do Mixamo
     novaAcao.reset();
-    novaAcao.fadeIn(0.5);
+    novaAcao.setEffectiveWeight(1);
+    novaAcao.setEffectiveTimeScale(1);
     novaAcao.play();
     
     activeAction = novaAcao;
